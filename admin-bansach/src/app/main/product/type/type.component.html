@@ -7,43 +7,11 @@
       <li class="active">Quản lý loại sản phẩm</li>
     </ul><!-- /.breadcrumb -->
   </div>
-  <div class="page-content">
+  <div class="page-content"> 
     <div class="row">
       <div class="col-xs-12">
         <!-- PAGE CONTENT BEGINS -->
-          <!-- PAGE CONTENT BEGINS -->
-        <p-table selectionMode="single" [value]="product_types" styleClass="p-datatable-gridlines">
-          <ng-template pTemplate="header">
-            <tr>
-              <th style="width: 50px; text-align: center;">STT</th>
-              <th style="width: 15%; text-align: left;">Mã Danh mục cha</th>
-              <th style="width: 20%; text-align: left;">Mã Danh Mục</th>
-              <th style="text-align: left;">Tên Danh Mục</th>
-              <th style="width: 230px; text-align: left;">Số thứ tự danh mục</th>
-              <th style="width: 120px; text-align: left;">Tác vụ</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-item  let-i="rowIndex">
-            <tr>
-              <td style="width: 70px; text-align: center;">{{ i + 1 }}</td>
-              <td>{{ item.parent_item_group_id }}</td>
-              <td>{{item.item_group_id }}</td>
-              <td>{{ item.item_group_name }}</td>
-              <td>{{ item.seq_num }}</td>
-              <td>{{ item.role }}</td>
-              <td class="action-col" >
-                <div class="btn-group">
-                  <button title="" class="btn btn-xs btn-white btn-default"  (click)="openUpdateModal(item)">
-                    <i class="ace-icon fa fa-edit"></i>
-                  </button>
-                  <button title="" class="btn btn-xs btn-white btn-default" (click)="onDelete(item)">
-                    <i class="ace-icon fa fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
+                   Nội dung trang quản lý loại sản phẩm
         <!-- PAGE CONTENT ENDS -->
       </div><!-- /.col -->
     </div><!-- /.row -->

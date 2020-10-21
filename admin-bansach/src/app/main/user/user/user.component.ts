@@ -19,7 +19,7 @@ export class UserComponent extends BaseComponent implements OnInit {
   public uploadedFiles: any[] = [];
   public formsearch: any;
   public formdata: any;
-  public doneSetupForm: any;
+  public doneSetupForm: any;  
   public showUpdateModal:any;
   public isCreate:any;
   submitted = false;
@@ -31,21 +31,21 @@ export class UserComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.formsearch = this.fb.group({
       'hoten': [''],
-      'taikhoan': [''],
+      'taikhoan': [''],     
     });
-
+   
    this.search();
   }
 
-  loadPage(page) {
+  loadPage(page) { 
     this._api.post('/api/users/search',{page: page, pageSize: this.pageSize}).takeUntil(this.unsubscribe).subscribe(res => {
       this.users = res.data;
       this.totalRecords =  res.totalItems;
       this.pageSize = res.pageSize;
       });
-  }
+  } 
 
-  search() {
+  search() { 
     this.page = 1;
     this.pageSize = 5;
     this._api.post('/api/users/search',{page: this.page, pageSize: this.pageSize, hoten: this.formsearch.get('hoten').value, taikhoan: this.formsearch.get('taikhoan').value}).takeUntil(this.unsubscribe).subscribe(res => {
@@ -69,8 +69,8 @@ export class UserComponent extends BaseComponent implements OnInit {
     this.submitted = true;
     if (this.formdata.invalid) {
       return;
-    }
-    if(this.isCreate) {
+    } 
+    if(this.isCreate) { 
       this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
         let data_image = data == '' ? null : data;
         let tmp = {
@@ -82,7 +82,7 @@ export class UserComponent extends BaseComponent implements OnInit {
            taikhoan:value.taikhoan,
            matkhau:value.matkhau,
            role:value.role,
-           ngaysinh:value.ngaysinh
+           ngaysinh:value.ngaysinh           
           };
         this._api.post('/api/users/create-user',tmp).takeUntil(this.unsubscribe).subscribe(res => {
           alert('Thêm thành công');
@@ -90,7 +90,7 @@ export class UserComponent extends BaseComponent implements OnInit {
           this.closeModal();
           });
       });
-    } else {
+    } else { 
       this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
         let data_image = data == '' ? null : data;
         let tmp = {
@@ -103,7 +103,7 @@ export class UserComponent extends BaseComponent implements OnInit {
            matkhau:value.matkhau,
            role:value.role,
            ngaysinh:value.ngaysinh ,
-           user_id:this.user.user_id,
+           user_id:this.user.user_id,          
           };
         this._api.post('/api/users/update-user',tmp).takeUntil(this.unsubscribe).subscribe(res => {
           alert('Cập nhật thành công');
@@ -112,17 +112,17 @@ export class UserComponent extends BaseComponent implements OnInit {
           });
       });
     }
+   
+  } 
 
-  }
-
-  onDelete(row) {
+  onDelete(row) { 
     this._api.post('/api/users/delete-user',{user_id:row.user_id}).takeUntil(this.unsubscribe).subscribe(res => {
       alert('Xóa thành công');
-      this.search();
+      this.search(); 
       });
   }
 
-  Reset() {
+  Reset() {  
     this.user = null;
     this.formdata = this.fb.group({
       'hoten': ['', Validators.required],
@@ -136,7 +136,7 @@ export class UserComponent extends BaseComponent implements OnInit {
       'role': [this.roles[0].value, Validators.required],
     }, {
       validator: MustMatch('matkhau', 'nhaplaimatkhau')
-    });
+    }); 
   }
 
   createModal() {
@@ -160,7 +160,7 @@ export class UserComponent extends BaseComponent implements OnInit {
         validator: MustMatch('matkhau', 'nhaplaimatkhau')
       });
       this.formdata.get('ngaysinh').setValue(this.today);
-      this.formdata.get('gioitinh').setValue(this.genders[0].value);
+      this.formdata.get('gioitinh').setValue(this.genders[0].value); 
       this.formdata.get('role').setValue(this.roles[0].value);
       this.doneSetupForm = true;
     });
@@ -168,12 +168,12 @@ export class UserComponent extends BaseComponent implements OnInit {
 
   public openUpdateModal(row) {
     this.doneSetupForm = false;
-    this.showUpdateModal = true;
+    this.showUpdateModal = true; 
     this.isCreate = false;
     setTimeout(() => {
       $('#createUserModal').modal('toggle');
       this._api.get('/api/users/get-by-id/'+ row.user_id).takeUntil(this.unsubscribe).subscribe((res:any) => {
-        this.user = res;
+        this.user = res; 
         let ngaysinh = new Date(this.user.ngaysinh);
           this.formdata = this.fb.group({
             'hoten': [this.user.hoten, Validators.required],
@@ -187,9 +187,9 @@ export class UserComponent extends BaseComponent implements OnInit {
             'role': [this.user.role, Validators.required],
           }, {
             validator: MustMatch('matkhau', 'nhaplaimatkhau')
-          });
+          }); 
           this.doneSetupForm = true;
-        });
+        }); 
     }, 700);
   }
 
